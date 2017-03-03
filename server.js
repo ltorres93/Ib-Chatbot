@@ -10,7 +10,7 @@ router.get ('/', function(req, res){
   global.surname = req.param ('surname');
   global.codigo = req.param ('codigo');
   checkin[0].messages[0].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
-  checkin[0].messages[0].attachment.payload.pnr_number= (`${codigo}`);
+  checkin['0'].messages['0'].attachment.payload.pnr_number= (`${codigo}`);
   res.setHeader('Content-type', 'application/json');
   res.json((checkin[0]));
 });
