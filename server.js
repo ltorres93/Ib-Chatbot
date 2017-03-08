@@ -8,7 +8,7 @@ var checkin = require("./templates/checkin.js");
 var BoardingPass = require("./templates/boarding_pass.js");
 var token, codigo, surname, origen, horaBoarding, horaBoardingISO, horaSalidaISO, horaLlegada,
     horaLlegadaISO;
-var horaSalida = "15:30";
+
 
 router.get ('/', function(req, res){
   surname = req.param ('surname');
@@ -36,13 +36,24 @@ router.get ('/', function(req, res){
     checkin['0'].messages['0'].attachment.payload.flight_info['0'].departure_airport.city= "Madrid";
     checkin['0'].messages['0'].attachment.payload.flight_info['0'].arrival_airport.airport_code= "BCN";
     checkin['0'].messages['0'].attachment.payload.flight_info['0'].arrival_airport.city= "Barcelona";
-    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_boarding_time_time = horaBoardingISO;
-    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_departure_time_time = horaSalidaISO;
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.boarding_time = horaBoardingISO;
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.departure_time = horaSalidaISO;
     checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.arrival_time = horaLlegadaISO;
     res.setHeader('Content-type', 'application/json');
     res.json((checkin['0']));
   } else if (origen == "Barcelona") {
-
+    checkin['0'].messages['0'].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
+    checkin['0'].messages['0'].attachment.payload.pnr_number= (`${codigo}`);
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_number = "IB1721";
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].departure_airport.airport_code= "BCN";
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].departure_airport.city= "Barcelona";
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].arrival_airport.airport_code= "MAD";
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].arrival_airport.city= "Madrid";
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.boarding_time = horaBoardingISO;
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.departure_time = horaSalidaISO;
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.arrival_time = horaLlegadaISO;
+    res.setHeader('Content-type', 'application/json');
+    res.json((checkin['0']));
   } else {
 
   checkin[0].messages[0].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
