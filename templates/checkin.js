@@ -12,23 +12,23 @@ checkin[0]= ({
         "pnr_number": "Code",
         "flight_info": [
           {
-            "flight_number": "f001",
+            "flight_number": "IB3912",
             "departure_airport": {
               "airport_code": "MAD",
               "city": "Madrid",
               "terminal": "T4",
-              "gate": "G1"
+              "gate": "D57"
             },
             "arrival_airport": {
-              "airport_code": "SEA",
-              "city": "Seattle",
-              "terminal": "T4",
-              "gate": "G8"
+              "airport_code": "PMI",
+              "city": "Palma de Mallorca",
+              "terminal": "T1",
+              "gate": "G2"
             },
             "flight_schedule": {
-              "boarding_time": "2017-07-05T15:05",
-              "departure_time": "2017-07-05T15:45",
-              "arrival_time": "2017-07-05T23:30"
+              "boarding_time": "2017-04-12T17:55",
+              "departure_time": "2017-04-12T18:40",
+              "arrival_time": "2017-04-12T20:00"
             }
           }
         ],

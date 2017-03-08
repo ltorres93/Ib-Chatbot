@@ -23,13 +23,13 @@ BoardingPass[0]= (
               },
               {
                 "label": "Departure",
-                "value": "30OCT 19:05"
+                "value": "12APR 18:40"
               }
             ],
             "secondary_fields": [
               {
                 "label": "Boarding",
-                "value": "18:30"
+                "value": "17:55"
               },
               {
                 "label": "Gate",
@@ -44,12 +44,12 @@ BoardingPass[0]= (
                 "value": "003"
               }
             ],
-            "logo_image_url": "http://www.outono.net/elentir/wp-content/uploads/2013/10/10334967323_f1b359c78a_o.png",
+            "logo_image_url": "http://hoyiberia.com/img_com/img-iberia.jpg",
             "header_image_url": "https:\/\/www.example.com\/en\/fb\/header.png",
             "qr_code": "M1SMITH\/NICOLAS  CG4X7U nawouehgawgnapwi3jfa0wfh",
             "above_bar_code_image_url": "https:\/\/www.example.com\/en\/PLAT.png",
             "flight_info": {
-              "flight_number": "KL0642",
+              "flight_number": "IB3912",
               "departure_airport": {
                 "airport_code": "MAD",
                 "city": "Madrid",
@@ -57,12 +57,12 @@ BoardingPass[0]= (
                 "gate": "D57"
               },
               "arrival_airport": {
-                "airport_code": "SEA",
-                "city": "Seattle"
+                "airport_code": "PMI",
+                "city": "Palma de Mallorca"
               },
               "flight_schedule": {
-                "departure_time": "2016-01-02T19:05",
-                "arrival_time": "2016-01-05T17:30"
+                "departure_time": "2017-04-12T18:40",
+                "arrival_time": "2017-04-12T20:00"
               }
             }
           }]
