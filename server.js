@@ -1,18 +1,54 @@
 var express = require ('express');
+var moment = require('moment');
 var app = express();
 var port = process.env.PORT || 3000;
 var router = express.Router();
 app.use(router);
 var checkin = require("./templates/checkin.js");
 var BoardingPass = require("./templates/boarding_pass.js");
+var token, codigo, surname, origen, horaBoarding, horaBoardingISO, horaSalidaISO, horaLlegada,
+    horaLlegadaISO;
+var horaSalida = "15:30";
 
 router.get ('/', function(req, res){
-  global.surname = req.param ('surname');
-  global.codigo = req.param ('codigo');
+  surname = req.param ('surname');
+  codigo = req.param ('codigo');
+  origen= req.param ('origen');
+  horaSalida= req.param ('horaSalida');
+  
+  	var horasalidaFullData = moment(horaSalida, "HH:mm");
+        horaSalidaISO = moment(horasalidaFullData).format("YYYY-MM-DDTHH:mm");
+
+    var horaBoardingFullData = moment(horasalidaFullData).subtract(45, 'minutes');
+        horaBoardingISO = moment(horaBoardingFullData).format("YYYY-MM-DDTHH:mm"); 
+        horaBoarding =moment(horaBoardingFullData).format("HH:mm"); 
+
+    var horaLlegadaFullData = moment(horasalidaFullData).add(1, 'hour').add(15, 'minutes');
+        horaLlegadaISO = moment(horaLlegadaFullData).format("YYYY-MM-DDTHH:mm"); 
+        horaLlegada =moment(horaLlegadaFullData).format("HH:mm");
+
+  if (origen==="Madrid"){
+       
+    checkin['0'].messages['0'].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
+    checkin['0'].messages['0'].attachment.payload.pnr_number= (`${codigo}`);
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_number = "IB1793";
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].departure_airport.airport_code= "MAD";
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].departure_airport.city= "Madrid";
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].arrival_airport.airport_code= "BCN";
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].arrival_airport.city= "Barcelona";
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_boarding_time_time = horaBoardingISO;
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_departure_time_time = horaSalidaISO;
+    checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.arrival_time = horaLlegadaISO;
+    res.setHeader('Content-type', 'application/json');
+    res.json((checkin['0']));
+  } else if (origen == "Barcelona") {
+
+  } else {
+
   checkin[0].messages[0].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
   checkin['0'].messages['0'].attachment.payload.pnr_number= (`${codigo}`);
   res.setHeader('Content-type', 'application/json');
-  res.json((checkin[0]));
+  res.json((checkin[0]));}
 });
 
 
