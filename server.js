@@ -4,13 +4,14 @@ var app = express();
 var port = process.env.PORT || 3000;
 var router = express.Router();
 app.use(router);
-var checkin = require("./templates/checkin.js");
+var checkinOriginal = require("./templates/checkin.js");
 var BoardingPass = require("./templates/boarding_pass.js");
 var token, codigo, surname, origen, horaBoarding, horaBoardingISO, horaSalidaISO, horaLlegada,
     horaLlegadaISO;
 
 
 router.get ('/', function(req, res){
+  var checkin = checkinOriginal;
   surname = req.param ('surname');
   codigo = req.param ('codigo');
 
@@ -22,6 +23,7 @@ router.get ('/', function(req, res){
 
 
 router.get ('/shuttle', function(req, res){
+  var checkin = checkinOriginal;
   surname = req.param ('surname');
   codigo = req.param ('codigo');
   origen= req.param ('origen');
