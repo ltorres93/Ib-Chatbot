@@ -4,26 +4,33 @@ var app = express();
 var port = process.env.PORT || 3000;
 var router = express.Router();
 app.use(router);
-var checkinOriginal = require("./templates/checkin.js");
+var checkinjs = require("./templates/checkin.js");
 var BoardingPass = require("./templates/boarding_pass.js");
 var token, codigo, surname, origen, horaBoarding, horaBoardingISO, horaSalidaISO, horaLlegada,
     horaLlegadaISO;
 
 
 router.get ('/', function(req, res){
-  var checkin = checkinOriginal;
+  var checkin = checkinjs.checkinTemplate;
   surname = req.param ('surname');
   codigo = req.param ('codigo');
 
   checkin['0'].messages['0'].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
   checkin['0'].messages['0'].attachment.payload.pnr_number= (`${codigo}`);
+  checkin['0'].messages['0'].attachment.payload.flight_info['0'].departure_airport.airport_code= "MAD";
+  checkin['0'].messages['0'].attachment.payload.flight_info['0'].departure_airport.city= "Madrid";
+  checkin['0'].messages['0'].attachment.payload.flight_info['0'].arrival_airport.airport_code= "PMI";
+  checkin['0'].messages['0'].attachment.payload.flight_info['0'].arrival_airport.city= "Palma de Mallorca";
+  checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.boarding_time = "2017-04-12T17:55";
+  checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.departure_time = "2017-04-12T18:40";
+  checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.arrival_time = "2017-04-12T20:00";
   res.setHeader('Content-type', 'application/json');
   res.json(checkin['0']);
 });
 
 
 router.get ('/shuttle', function(req, res){
-  var checkin = checkinOriginal;
+  var checkin = checkinjs.checkinTemplate;
   surname = req.param ('surname');
   codigo = req.param ('codigo');
   origen= req.param ('origen');

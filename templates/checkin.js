@@ -1,5 +1,5 @@
-var checkin = [];
-checkin[0]= ({
+var checkinTemplate = [];
+checkinTemplate[0]= ({
   "messages": [
   {
     "attachment": {
@@ -37,4 +37,4 @@ checkin[0]= ({
     }
   }]
 })
-module.exports= checkin;
+exports.checkinTemplate= checkinTemplate;
