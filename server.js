@@ -13,6 +13,17 @@ var token, codigo, surname, origen, horaBoarding, horaBoardingISO, horaSalidaISO
 router.get ('/', function(req, res){
   surname = req.param ('surname');
   codigo = req.param ('codigo');
+
+  checkin['0'].messages['0'].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
+  checkin['0'].messages['0'].attachment.payload.pnr_number= (`${codigo}`);
+  res.setHeader('Content-type', 'application/json');
+  res.json(checkin['0']);
+});
+
+
+router.get ('/shuttle', function(req, res){
+  surname = req.param ('surname');
+  codigo = req.param ('codigo');
   origen= req.param ('origen');
   horaSalida= req.param ('horaSalida');
   
@@ -55,11 +66,17 @@ router.get ('/', function(req, res){
     res.setHeader('Content-type', 'application/json');
     res.json((checkin['0']));
   } else {
+  var notAvailable = [];
+  notAvailable['0'] = ({
+      "messages": [
+      {"text": "This origin is not available!"}      
+      ]})
 
-  checkin[0].messages[0].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
+  checkin['0'].messages['0'].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
   checkin['0'].messages['0'].attachment.payload.pnr_number= (`${codigo}`);
   res.setHeader('Content-type', 'application/json');
-  res.json((checkin[0]));}
+  res.json(notAvailable['0']);
+  }
 });
 
 
