@@ -37,7 +37,7 @@ BoardingPassTemplate[0]= (
               },
               {
                 "label": "Seat",
-                "value": "74A"
+                "value": "24A"
               },
               {
                 "label": "Sec.Nr.",
