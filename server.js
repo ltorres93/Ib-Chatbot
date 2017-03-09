@@ -5,9 +5,9 @@ var port = process.env.PORT || 3000;
 var router = express.Router();
 app.use(router);
 var checkinjs = require("./templates/checkin.js");
-var BoardingPass = require("./templates/boarding_pass.js");
-var token, codigo, surname, origen, horaBoarding, horaBoardingISO, horaSalidaISO, horaLlegada,
-    horaLlegadaISO;
+var boardingPassjs = require("./templates/boarding_pass.js");
+var token, codigo, surname, origen, horaBoarding, horaBoardingISO, horaBoardingFullData, horaSalidaISO, horasalidaFullData,
+ horaLlegada, horaLlegadaISO,horaLlegadaFullData;
 
 
 router.get ('/', function(req, res){
@@ -36,14 +36,14 @@ router.get ('/shuttle', function(req, res){
   origen= req.param ('origen');
   horaSalida= req.param ('horaSalida');
   
-  	var horasalidaFullData = moment(horaSalida, "HH:mm");
+  	    horasalidaFullData = moment(horaSalida, "HH:mm");
         horaSalidaISO = moment(horasalidaFullData).format("YYYY-MM-DDTHH:mm");
 
-    var horaBoardingFullData = moment(horasalidaFullData).subtract(45, 'minutes');
+        horaBoardingFullData = moment(horasalidaFullData).subtract(45, 'minutes');
         horaBoardingISO = moment(horaBoardingFullData).format("YYYY-MM-DDTHH:mm"); 
         horaBoarding =moment(horaBoardingFullData).format("HH:mm"); 
 
-    var horaLlegadaFullData = moment(horasalidaFullData).add(1, 'hour').add(15, 'minutes');
+        horaLlegadaFullData = moment(horasalidaFullData).add(1, 'hour').add(15, 'minutes');
         horaLlegadaISO = moment(horaLlegadaFullData).format("YYYY-MM-DDTHH:mm"); 
         horaLlegada =moment(horaLlegadaFullData).format("HH:mm");
 
@@ -81,8 +81,6 @@ router.get ('/shuttle', function(req, res){
       {"text": "This origin is not available!"}      
       ]})
 
-  checkin['0'].messages['0'].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
-  checkin['0'].messages['0'].attachment.payload.pnr_number= (`${codigo}`);
   res.setHeader('Content-type', 'application/json');
   res.json(notAvailable['0']);
   }
@@ -90,13 +88,74 @@ router.get ('/shuttle', function(req, res){
 
 
 router.get ('/bpass', function(req, res){
-  global.surname = req.param ('surname');
-  global.codigo = req.param ('codigo');
-  BoardingPass[0].messages[0].attachment.payload.boarding_pass[0].passenger_name= (`Mr ${surname}`);
-  BoardingPass[0].messages[0].attachment.payload.boarding_pass[0].pnr_number= (`${codigo}`);
+  var boardingPass = boardingPassjs.BoardingPassTemplate;
+  surname = req.param ('surname');
+  codigo = req.param ('codigo');
+  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].passenger_name= (`Mr ${surname}`);
+  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].pnr_number= (`${codigo}`);
+  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].auxiliary_fields['1'].value= "12APR 18:40";
+  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].secondary_fields['0'].value= "17:55";
+  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_number= "IB3912";
+  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.departure_airport.airport_code = "MAD";
+  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.departure_airport.city = "Madrid";
+  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.arrival_airport.airport_code = "PMI";
+  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.arrival_airport.city= "Palma de Mallorca";
+  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_schedule.departure_time = "2017-04-12T18:40";
+  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_schedule.arrival_time= "2017-04-12T20:00";
   res.setHeader('Content-type', 'application/json');
-  res.json((BoardingPass[0]));
+  res.json(boardingPass['0']);
 });
+
+
+
+router.get ('/bpass/shuttle', function(req, res){
+  var boardingPass = boardingPassjs.BoardingPassTemplate;
+  surname = req.param ('surname');
+  codigo = req.param ('codigo');
+  origen= req.param ('origen');
+  horaSalida= req.param ('horaSalida');
+
+  if (origen==="Madrid"){
+       
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].passenger_name= (`Mr ${surname}`);
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].pnr_number= (`${codigo}`);
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].auxiliary_fields['1'].value= `${moment(horasalidaFullData).format("DDMMM HH:mm")}`;
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].secondary_fields['0'].value= horaBoarding;
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_number= "IB1793";
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.departure_airport.airport_code = "MAD";
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.departure_airport.city = "Madrid";
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.arrival_airport.airport_code = "BCN";
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.arrival_airport.city= "Barcelona";
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_schedule.departure_time = horaSalidaISO;
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_schedule.arrival_time= horaLlegadaISO;
+    
+    res.setHeader('Content-type', 'application/json');
+    res.json(boardingPass['0']);
+  } else if (origen == "Barcelona") {
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].passenger_name= (`Mr ${surname}`);
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].pnr_number= (`${codigo}`);
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].auxiliary_fields['1'].value= `${moment(horasalidaFullData).format("DDMMM HH:mm")}`;
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].secondary_fields['0'].value= horaBoarding;
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_number= "IB1721";
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.departure_airport.airport_code = "BCN";
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.departure_airport.city = "Barcelona";
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.arrival_airport.airport_code = "MAD";
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.arrival_airport.city= "Madrid";
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_schedule.departure_time = horaSalidaISO;
+    boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_schedule.arrival_time= horaLlegadaISO;
+    res.setHeader('Content-type', 'application/json');
+    res.json(boardingPass['0']);
+  } else {
+  var notAvailable = [];
+  notAvailable['0'] = ({
+      "messages": [
+      {"text": "This origin is not available!"}      
+      ]})
+  res.setHeader('Content-type', 'application/json');
+  res.json(notAvailable['0']);
+  }
+});
+
 
 app.listen (port);
 console.log (`Server started at ${port}`)

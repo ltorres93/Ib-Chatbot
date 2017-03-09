@@ -1,5 +1,5 @@
-var BoardingPass = [];
-BoardingPass[0]= (
+var BoardingPassTemplate = [];
+BoardingPassTemplate[0]= (
 {
  "messages": [
   {
@@ -15,7 +15,7 @@ BoardingPass[0]= (
             "passenger_name": "LUIS TORRES",
             "pnr_number": "CG4X7U",
             "travel_class": "business",
-            "seat": "74J",
+            "seat": "74A",
             "auxiliary_fields": [
               {
                 "label": "Terminal",
@@ -37,7 +37,7 @@ BoardingPass[0]= (
               },
               {
                 "label": "Seat",
-                "value": "74J"
+                "value": "74A"
               },
               {
                 "label": "Sec.Nr.",
@@ -70,4 +70,4 @@ BoardingPass[0]= (
     }
   }]
 })
-module.exports= BoardingPass;
+exports.BoardingPassTemplate= BoardingPassTemplate;
