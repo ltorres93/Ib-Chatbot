@@ -71,10 +71,11 @@ router.get ('/shuttle', function(req, res){
   checkin['0'].messages['0'].attachment.payload.pnr_number= (`${codigo}`);
   res.setHeader('Content-type', 'application/json');
   res.json({
- "messages": [
-   {"text": "This origin is not available"}
-   ]
-});}
+      "messages": [
+      {"text": "Welcome to our store!"},
+      {"text": "How can I help you?"}
+      ]});
+  }
 });
 
 
