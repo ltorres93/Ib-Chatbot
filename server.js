@@ -75,7 +75,15 @@ router.get ('/shuttle', function(req, res){
   checkin['0'].messages['0'].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
   checkin['0'].messages['0'].attachment.payload.pnr_number= (`${codigo}`);
   res.setHeader('Content-type', 'application/json');
+<<<<<<< HEAD
   res.json(notAvailable['0']);
+=======
+  res.json({
+      "messages": [
+      {"text": "Welcome to our store!"},
+      {"text": "How can I help you?"}
+      ]});
+>>>>>>> ca55b45afe1e288739adafbf7bbf4f92f4ca974f
   }
 });
 
