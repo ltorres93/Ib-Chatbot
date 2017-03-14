@@ -3,12 +3,13 @@ var moment = require('moment');
 var app = express();
 var port = process.env.PORT || 3000;
 var router = express.Router();
-app.use(router);
 var checkinjs = require("./templates/checkin.js");
 var boardingPassjs = require("./templates/boarding_pass.js");
 var token, codigo, surname, origen, horaBoarding, horaBoardingISO, horaBoardingFullData, horaSalidaISO, horasalidaFullData,
  horaLlegada, horaLlegadaISO,horaLlegadaFullData;
 
+app.use(express.static('images'));
+app.use(router);
 
 router.get ('/', function(req, res){
   var checkin = checkinjs.checkinTemplate;
