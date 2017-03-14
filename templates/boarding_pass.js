@@ -15,7 +15,7 @@ BoardingPassTemplate[0]= (
             "passenger_name": "LUIS TORRES",
             "pnr_number": "CG4X7U",
             "travel_class": "business",
-            "seat": "74A",
+            "seat": "24A",
             "auxiliary_fields": [
               {
                 "label": "Terminal",
