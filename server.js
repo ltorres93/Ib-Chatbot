@@ -9,6 +9,7 @@ var token, codigo, surname, origen, horaBoarding, horaBoardingISO, horaBoardingF
  horaLlegada, horaLlegadaISO,horaLlegadaFullData;
 
 app.use(express.static('images'));
+app.use(express.static('templates'));
 app.use(router);
 
 router.get ('/', function(req, res){

@@ -1,0 +1,151 @@
+{
+  "checkinId": "Q2hlY2tpbkBJTlRFUk5FVF9XRUJfSUJFUklBX2liZXJpYV93ZWJfUDEyMjMwMl8xLzE4LzIwMTcgMTE6MTI6NTcgQU1fNTEzM19DT00wMDNXRUJQUkUxLTE%3D",
+  "passengers": [
+    {
+      "id": 1,
+      "name": "PRUEBA",
+      "surname": "PRUEBA",
+      "title": null,
+      "gender": "FEMALE",
+      "type": "ADULT",
+      "frequentFlyer": null,
+      "resident": false,
+      "requiredInformation": [],
+      "optionalInformation": [
+        "GENDER"
+      ],
+      "status": {
+        "code": "ALLOWED",
+        "reason": null
+      },
+      "infant": null,
+      "pendingPayment": false
+    }
+  ],
+  "checkinSegmentsInGroup": [
+    3
+  ],
+  "outwardSegments": [
+    {
+      "id": 2,
+      "departure": {
+        "date": "2017-01-19 11:40",
+        "utcDate": "2017-01-19 10:40",
+        "terminal": "4",
+        "airport": {
+          "code": "MAD",
+          "description": "Madrid",
+          "country": "ES"
+        }
+      },
+      "arrival": {
+        "date": "2017-01-19 12:45",
+        "utcDate": "2017-01-19 11:45",
+        "terminal": null,
+        "airport": {
+          "code": "BIO",
+          "description": "Bilbao",
+          "country": "ES"
+        }
+      },
+      "boarding": {
+        "date": "2017-01-19 11:10",
+        "utcDate": "2017-01-19 10:10",
+        "terminal": "4",
+        "airport": {
+          "code": "MAD",
+          "description": "Madrid",
+          "country": "ES"
+        },
+        "gate": ""
+      },
+      "passengers": [
+        {
+          "id": 1,
+          "seat": null,
+          "status": {
+            "code": "CHECKABLE",
+            "message": null
+          },
+          "ticket": {
+            "number": "0752000260728",
+            "coupon": "1"
+          },
+          "infantTicket": null
+        }
+      ],
+      "operatingFlightNumber": {
+        "company": {
+          "code": "IB",
+          "description": "IB"
+        },
+        "number": "0426"
+      },
+      "marketingFlightNumber": null,
+      "cabinClass": {
+        "code": "A",
+        "type": "ECONOMY",
+        "description": "Turista"
+      },
+      "estimatedFlightTime": "01:05:00",
+      "typeOfTransport": "FLIGHT"
+    }
+  ],
+  "returnSegments": [
+    {
+      "id": 3,
+      "departure": {
+        "date": "2017-01-20 09:30",
+        "utcDate": "2017-01-20 08:30",
+        "terminal": null,
+        "airport": {
+          "code": "BIO",
+          "description": "Bilbao",
+          "country": "ES"
+        }
+      },
+      "arrival": {
+        "date": "2017-01-20 10:40",
+        "utcDate": "2017-01-20 09:40",
+        "terminal": null,
+        "airport": {
+          "code": "MAD",
+          "description": "Madrid",
+          "country": "ES"
+        }
+      },
+      "boarding": null,
+      "passengers": [
+        {
+          "id": 1,
+          "seat": null,
+          "status": {
+            "code": "CHECKABLE",
+            "message": null
+          },
+          "ticket": {
+            "number": "0752000260728",
+            "coupon": "2"
+          },
+          "infantTicket": null
+        }
+      ],
+      "operatingFlightNumber": {
+        "company": {
+          "code": "IB",
+          "description": "IB"
+        },
+        "number": "0423"
+      },
+      "marketingFlightNumber": null,
+      "cabinClass": {
+        "code": "O",
+        "type": "ECONOMY",
+        "description": "Turista"
+      },
+      "estimatedFlightTime": "01:10:00",
+      "typeOfTransport": "FLIGHT"
+    }
+  ],
+  "deepLinkInformation": null
+}
