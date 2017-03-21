@@ -62,7 +62,7 @@
       "passengers": [
         {
           "id": 1,
-          "seat": null,
+          "seat": "30A",
           "status": {
             "code": "CHECKABLE",
             "message": null
