@@ -1,3 +1,4 @@
+function checkinTemplate () {
 var checkinTemplate = [];
 checkinTemplate[0]= ({
   "messages": [
@@ -37,4 +38,7 @@ checkinTemplate[0]= ({
     }
   }]
 })
-exports.checkinTemplate= checkinTemplate;
+return checkinTemplate;
+};
+
+module.exports= checkinTemplate;

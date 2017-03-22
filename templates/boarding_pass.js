@@ -1,3 +1,4 @@
+function bpassTemplate () {
 var BoardingPassTemplate = [];
 BoardingPassTemplate[0]= (
 {
@@ -15,7 +16,7 @@ BoardingPassTemplate[0]= (
             "passenger_name": "LUIS TORRES",
             "pnr_number": "CG4X7U",
             "travel_class": "business",
-            "seat": "24A",
+            "seat": "74A",
             "auxiliary_fields": [
               {
                 "label": "Terminal",
@@ -32,16 +33,8 @@ BoardingPassTemplate[0]= (
                 "value": "17:55"
               },
               {
-                "label": "Gate",
-                "value": "D57"
-              },
-              {
                 "label": "Seat",
                 "value": "24A"
-              },
-              {
-                "label": "Sec.Nr.",
-                "value": "003"
               }
             ],
             "logo_image_url": "http://hoyiberia.com/img_com/img-iberia.jpg",
@@ -70,4 +63,6 @@ BoardingPassTemplate[0]= (
     }
   }]
 })
-exports.BoardingPassTemplate= BoardingPassTemplate;
+return BoardingPassTemplate;
+};
+module.exports= bpassTemplate;
