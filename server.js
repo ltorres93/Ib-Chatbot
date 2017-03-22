@@ -3,33 +3,41 @@ var moment = require('moment');
 var app = express();
 var port = process.env.PORT || 3000;
 var router = express.Router();
-var checkinjs = require("./templates/checkin.js");
-var boardingPassjs = require("./templates/boarding_pass.js");
-var token, codigo, surname, origen, horaBoarding, horaBoardingISO, horaBoardingFullData, horaSalidaISO, horasalidaFullData,
+var checkinTemplate = require("./templates/checkin.js");
+var bpassTemplate = require("./templates/boarding_pass.js");
+var checkinParser = require("./Parser/checkinParser.js").checkinParser;
+var boardingParser = require("./Parser/boardingParser.js").boardingParser;
+var token, codigo, surname, origen, clientData, horaBoarding, horaBoardingISO, horaBoardingFullData, horaSalidaISO, horasalidaFullData,
  horaLlegada, horaLlegadaISO,horaLlegadaFullData;
 
 app.use(express.static('images'));
 app.use(express.static('templates'));
 app.use(router);
 
-router.get ('/', function(req, res){
-  var checkin = checkinjs.checkinTemplate;
+router.get ('/checkin', function(req, res){
+  var surname, code, token, checkin;
+  var Authorization = require("./HTTPcalls/HTTPcalls.js").Authorization;
+  var RequestData = require("./HTTPcalls/HTTPcalls.js").RequestData;
+  checkin = new checkinTemplate ();
   surname = req.param ('surname');
   codigo = req.param ('codigo');
 
-  checkin['0'].messages['0'].attachment.payload.intro_message= (`Checkin is available Mr ${surname}`);
-  checkin['0'].messages['0'].attachment.payload.pnr_number= (`${codigo}`);
-  checkin['0'].messages['0'].attachment.payload.flight_info['0'].departure_airport.airport_code= "MAD";
-  checkin['0'].messages['0'].attachment.payload.flight_info['0'].departure_airport.city= "Madrid";
-  checkin['0'].messages['0'].attachment.payload.flight_info['0'].arrival_airport.airport_code= "PMI";
-  checkin['0'].messages['0'].attachment.payload.flight_info['0'].arrival_airport.city= "Palma de Mallorca";
-  checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.boarding_time = "2017-04-12T17:55";
-  checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.departure_time = "2017-04-12T18:40";
-  checkin['0'].messages['0'].attachment.payload.flight_info['0'].flight_schedule.arrival_time = "2017-04-12T20:00";
-  res.setHeader('Content-type', 'application/json');
-  res.json(checkin['0']);
+  Authorization(function(acess_token){
+      token = body.acess_token;
+      RequestData (surname, code, token, function (data) {
+      clientData = data;
+      checkinUpdated = checkinParser (clientData, checkin, surname, codigo);
+      res.send(checkinUpdated);
+      });
+  });
 });
 
+router.get ('/bpass', function(req, res){
+  bpass = new bpassTemplate();
+  surname = req.param ('surname');
+  codigo = req.param ('codigo');
+  bpassUpdated = boardingParser(clientData, bpass, surname, codigo); 
+});
 
 router.get ('/shuttle', function(req, res){
   var checkin = checkinjs.checkinTemplate;
@@ -87,28 +95,6 @@ router.get ('/shuttle', function(req, res){
   res.json(notAvailable['0']);
   }
 });
-
-
-router.get ('/bpass', function(req, res){
-  var boardingPass = boardingPassjs.BoardingPassTemplate;
-  surname = req.param ('surname');
-  codigo = req.param ('codigo');
-  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].passenger_name= (`Mr ${surname}`);
-  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].pnr_number= (`${codigo}`);
-  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].auxiliary_fields['1'].value= "12APR 18:40";
-  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].secondary_fields['0'].value= "17:55";
-  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_number= "IB3912";
-  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.departure_airport.airport_code = "MAD";
-  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.departure_airport.city = "Madrid";
-  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.arrival_airport.airport_code = "PMI";
-  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.arrival_airport.city= "Palma de Mallorca";
-  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_schedule.departure_time = "2017-04-12T18:40";
-  boardingPass['0'].messages['0'].attachment.payload.boarding_pass['0'].flight_info.flight_schedule.arrival_time= "2017-04-12T20:00";
-  res.setHeader('Content-type', 'application/json');
-  res.json(boardingPass['0']);
-});
-
-
 
 router.get ('/bpass/shuttle', function(req, res){
   var boardingPass = boardingPassjs.BoardingPassTemplate;
