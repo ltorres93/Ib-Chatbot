@@ -12,7 +12,7 @@ app.use(express.static('images'));
 app.use(express.static('templates'));
 app.use(router);
 
-router.get ('/', function(req, res){
+router.get ('/checkin', function(req, res){
   var checkin = checkinjs.checkinTemplate;
   surname = req.param ('surname');
   codigo = req.param ('codigo');
