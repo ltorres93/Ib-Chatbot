@@ -1,4 +1,5 @@
 var express = require ('express');
+var request = require("request");
 var moment = require('moment');
 var app = express();
 var port = process.env.PORT || 3000;
@@ -23,7 +24,7 @@ router.get ('/checkin', function(req, res){
   codigo = req.param ('codigo');
 
   Authorization(function(acess_token){
-      token = body.acess_token;
+      token = acess_token;
       RequestData (surname, code, token, function (data) {
       clientData = data;
       checkinUpdated = checkinParser (clientData, checkin, surname, codigo);
@@ -36,7 +37,8 @@ router.get ('/bpass', function(req, res){
   bpass = new bpassTemplate();
   surname = req.param ('surname');
   codigo = req.param ('codigo');
-  bpassUpdated = boardingParser(clientData, bpass, surname, codigo); 
+  bpassUpdated = boardingParser(clientData, bpass, surname, codigo);
+  res.send(bpassUpdated); 
 });
 
 router.get ('/shuttle', function(req, res){
