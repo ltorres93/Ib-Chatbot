@@ -1,4 +1,5 @@
 var request = require("request");
+const basext = require("basext");
 
 exports.Authorization = function (callback){
   var optionsAuth = {
@@ -30,7 +31,7 @@ exports.RequestData = function (surname, code, token, callback){
   // json:true,
   // headers:{ "Content-Type" : "application/json",
   //           "Accept-Language" : "ES-es",
-  //           "Request-Surname" :`${surname}`,
+  //           "Request-Surname" :`${basext({to: "base64", data: surname})}`,
   //           "Authorization": `Bearer ${token}`
   // }
   uri: `https://dry-temple-14194.herokuapp.com/Response`,
