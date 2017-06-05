@@ -15,6 +15,7 @@ exports.checkinParser = function (clientData, checkin, surname, codigo) {
     clientData.outwardSegments['0'].departure.airport.description;
   checkin['0'].messages['0'].attachment.payload.flight_info['0'].departure_airport.terminal=
     clientData.outwardSegments['0'].departure.terminal;
+  
   checkin['0'].messages['0'].attachment.payload.flight_info['0'].departure_airport.gate=
     clientData.outwardSegments['0'].boarding.gate;
   

@@ -3,16 +3,14 @@ const basext = require("basext");
 
 exports.Authorization = function (callback){
   var optionsAuth = {
-  // uri: "https://pre-ibisauth.iberia.com/api/auth/realms/commercial_platform/protocol/openid-connect/token",
-  // method: "POST",
-  // timeout: 10000,
-  // json:true,
-  // headers:{ "Content-Type" : "application/x-www-form-urlencoded",
-  //           "Authorization": "Basic aWJlcmlhX3dlYjphOWQ4NjRiZi1jY2Y2LTQwODctYTJmMS1hMzI1YWEyNGIxMWE="}
-  uri: "https://dry-temple-14194.herokuapp.com/Autho",
-  method: "GET",
+  uri: "https://pre-ibisauth.iberia.com/api/auth/realms/commercial_platform/protocol/openid-connect/token",
+  method: "POST",
   timeout: 10000,
-  json:true
+  json:true,
+  headers:{ "Content-Type" : "application/x-www-form-urlencoded",
+            "Authorization": "Basic aWJlcmlhX3dlYjphOWQ4NjRiZi1jY2Y2LTQwODctYTJmMS1hMzI1YWEyNGIxMWE="},
+  form:{grant_type:'client_credentials'}
+  
         }; 
   
 
@@ -25,19 +23,15 @@ request (optionsAuth, function(error, response, body) {
 
 exports.RequestData = function (surname, code, token, callback){
   var optionsReq = {
-  // uri: `https://pre-ibisservices.iberia.com/api/pac-prm/rs/checkin/v1/booking/${code}`,
-  // method: "GET",
-  // timeout: 10000,
-  // json:true,
-  // headers:{ "Content-Type" : "application/json",
-  //           "Accept-Language" : "ES-es",
-  //           "Request-Surname" :`${basext({to: "base64", data: surname})}`,
-  //           "Authorization": `Bearer ${token}`
-  // }
-  uri: `https://dry-temple-14194.herokuapp.com/Response`,
+  uri: `https://pre-ibisservices.iberia.com/api/pac-prm/rs/checkin/v1/booking/${code}`,
   method: "GET",
   timeout: 10000,
   json:true,
+  headers:{ "Content-Type" : "application/json",
+            "Accept-Language" : "ES-es",
+            "Request-Surname" :`${basext({to: "base64", data: surname})}`,
+            "Authorization": `Bearer ${token}`
+  }
 }; 
 
 request (optionsReq, function(error, response, body) {

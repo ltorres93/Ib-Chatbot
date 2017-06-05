@@ -5,6 +5,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "basext": "^3.0.0",
     "body-parser": "^1.16.1",
     "express": "~4.10.2",
     "moment": "^2.17.1",

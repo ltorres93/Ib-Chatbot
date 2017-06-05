@@ -2,7 +2,7 @@ var express = require ('express');
 var request = require("request");
 var moment = require('moment');
 var app = express();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 7000;
 var router = express.Router();
 var checkinTemplate = require("./templates/checkin.js");
 var bpassTemplate = require("./templates/boarding_pass.js");
@@ -25,7 +25,7 @@ router.get ('/checkin', function(req, res){
 
   Authorization(function(acess_token){
       token = acess_token;
-      RequestData (surname, code, token, function (data) {
+      RequestData (surname, codigo, token, function (data) {
       clientData = data;
       checkinUpdated = checkinParser (clientData, checkin, surname, codigo);
       res.send(checkinUpdated);
